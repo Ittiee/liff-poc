@@ -7,5 +7,16 @@ export default defineConfig({
   server: {
     port: 3000,
     // strictPort: true
-  }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
+  // Enable SPA fallback for client-side routing
+  preview: {
+    port: 3000,
+  },
 });
