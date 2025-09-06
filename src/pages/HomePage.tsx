@@ -1,8 +1,15 @@
 import React from 'react';
 import { useLiff } from '../contexts/LiffContext';
+import { usePageNavigation } from '../hooks/usePageNavigation';
 
 const HomePage: React.FC = () => {
   const { message, error, isInitialized } = useLiff();
+  
+  // ใช้ custom hook สำหรับจัดการ page navigation
+  usePageNavigation({
+    validPages: ['about'],
+    replaceHistory: true
+  });
 
   return (
     <div>
