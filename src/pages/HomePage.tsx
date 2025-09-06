@@ -1,24 +1,8 @@
 import React from 'react';
-import { useEffect, useState } from "react";
-import liff from "@line/liff";
+import { useLiff } from '../contexts/LiffContext';
 
 const HomePage: React.FC = () => {
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    liff
-      .init({
-        liffId: import.meta.env.VITE_LIFF_ID,
-      })
-      .then(() => {
-        setMessage("LIFF init succeeded.");
-      })
-      .catch((e: Error) => {
-        setMessage("LIFF init failed.");
-        setError(`${e}`);
-      });
-  });
+  const { message, error, isInitialized } = useLiff();
 
   return (
     <div>
