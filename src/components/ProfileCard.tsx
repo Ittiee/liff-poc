@@ -21,39 +21,45 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ userProfile }) => {
       maxWidth: '500px',
       margin: '2rem auto'
     }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+      <div style={{ textAlign: 'center' }}>
         {userProfile.pictureUrl && (
           <img
             src={userProfile.pictureUrl}
             alt={userProfile.displayName}
             style={{
-              width: '80px',
-              height: '80px',
+              width: '100px',
+              height: '100px',
               borderRadius: '50%',
-              marginRight: '1.5rem',
-              border: '3px solid #00B900'
+              border: '3px solid #00B900',
+              marginBottom: '1rem'
             }}
           />
         )}
-        <div style={{ flex: 1 }}>
-          <h2 style={{ 
-            color: '#1a1a1a',
-            margin: '0 0 0.5rem 0',
-            fontSize: '1.8rem'
+        <h2 style={{ 
+          color: '#1a1a1a',
+          margin: '0 0 1rem 0',
+          fontSize: '1.8rem'
+        }}>
+          {userProfile.displayName}
+        </h2>
+        <div style={{
+          backgroundColor: '#fff',
+          padding: '1rem',
+          borderRadius: '8px',
+          fontSize: '0.9rem',
+          wordWrap: 'break-word',
+          overflowWrap: 'break-word',
+          maxWidth: '100%'
+        }}>
+          <p style={{ 
+            margin: 0, 
+            color: '#666',
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word',
+            lineHeight: '1.4'
           }}>
-            {userProfile.displayName}
-          </h2>
-          <div style={{
-            backgroundColor: '#fff',
-            padding: '0.8rem',
-            borderRadius: '8px',
-            fontSize: '0.9rem',
-            marginTop: '0.5rem'
-          }}>
-            <p style={{ margin: 0, color: '#666' }}>
-              <strong>User ID:</strong> {userProfile.userId}
-            </p>
-          </div>
+            <strong>User ID:</strong> {userProfile.userId}
+          </p>
         </div>
       </div>
     </div>
