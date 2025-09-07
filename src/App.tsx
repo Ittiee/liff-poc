@@ -13,6 +13,7 @@ function App() {
           <nav style={{ padding: '20px', borderBottom: '1px solid #ccc' }}>
             <Link to="/" style={{ marginRight: '20px' }}>Home</Link>
             <Link to="/about">About</Link>
+            
           </nav>
           
           <div style={{ padding: '20px' }}>
