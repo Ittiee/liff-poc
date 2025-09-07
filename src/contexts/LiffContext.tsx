@@ -1,5 +1,11 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import liff from '@line/liff';
+import liff from "@line/liff";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface LiffContextType {
   message: string;
@@ -16,7 +22,7 @@ const LiffContext = createContext<LiffContextType | undefined>(undefined);
 export const useLiff = () => {
   const context = useContext(LiffContext);
   if (context === undefined) {
-    throw new Error('useLiff must be used within a LiffProvider');
+    throw new Error("useLiff must be used within a LiffProvider");
   }
   return context;
 };
@@ -40,17 +46,18 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
       .then(() => {
         setMessage("LIFF init succeeded.");
         setIsInitialized(true);
-        
+
         // Check if user is already logged in
         if (liff.isLoggedIn()) {
           setIsLoggedIn(true);
           // Get user profile
-          liff.getProfile()
+          liff
+            .getProfile()
             .then((profile) => {
               setUserProfile(profile);
             })
             .catch((err) => {
-              console.error('Failed to get user profile:', err);
+              console.error("Failed to get user profile:", err);
             });
         } else {
           setIsLoggedIn(false);
@@ -75,7 +82,7 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
       liff.logout();
       setIsLoggedIn(false);
       setUserProfile(null);
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
@@ -86,29 +93,31 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
     isLoggedIn,
     userProfile,
     login,
-    logout
+    logout,
   };
 
   // แสดง spinner ขณะ init
   if (!isInitialized) {
     return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        flexDirection: 'column'
-      }}>
-        <div style={{
-          border: '4px solid #f3f3f3',
-          borderTop: '4px solid #00B900',
-          borderRadius: '50%',
-          width: '40px',
-          height: '40px',
-          animation: 'spin 1s linear infinite'
-        }}></div>
-        <p style={{ marginTop: '16px', color: '#666' }}>{message}</p>
-        {error && <p style={{ color: 'red', marginTop: '8px' }}>{error}</p>}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+        }}>
+        <div
+          style={{
+            border: "4px solid #f3f3f3",
+            borderTop: "4px solid #00B900",
+            borderRadius: "50%",
+            width: "40px",
+            height: "40px",
+            animation: "spin 1s linear infinite",
+          }}></div>
+        <p style={{ marginTop: "16px", color: "#666" }}>{message}</p>
+        {error && <p style={{ color: "red", marginTop: "8px" }}>{error}</p>}
         <style>{`
           @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -120,9 +129,5 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
   }
 
   // แสดง children เมื่อ init เสร็จ
-  return (
-    <LiffContext.Provider value={value}>
-      {children}
-    </LiffContext.Provider>
-  );
+  return <LiffContext.Provider value={value}>{children}</LiffContext.Provider>;
 };
