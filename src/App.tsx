@@ -11,12 +11,10 @@ function App() {
     <LiffProvider>
       <Router>
         <div className="App">
-          {/* <nav style={{ padding: '20px', borderBottom: '1px solid #ccc' }}>
-            <Link to="/" style={{ marginRight: '20px' }}>Home</Link>
-            <Link to="/about">About</Link>
-          </nav> */}
+          {/* Header */}
           <Navbar />
-          
+
+          {/* Main Content */}
           <div style={{ padding: '20px' }}>
             <Routes>
               <Route path="/" element={<HomePage />} />
