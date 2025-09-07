@@ -82,7 +82,7 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
       liff.logout();
       setIsLoggedIn(false);
       setUserProfile(null);
-      // window.location.reload();
+      window.location.reload();
     }
   };
 
