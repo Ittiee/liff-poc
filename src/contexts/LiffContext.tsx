@@ -47,6 +47,7 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
           // Get user profile
           liff.getProfile()
             .then((profile) => {
+              console.log('profile', profile)
               setUserProfile(profile);
             })
             .catch((err) => {
