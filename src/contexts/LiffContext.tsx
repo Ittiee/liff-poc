@@ -47,7 +47,6 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
           // Get user profile
           liff.getProfile()
             .then((profile) => {
-              console.log('profile', profile)
               setUserProfile(profile);
             })
             .catch((err) => {
@@ -55,7 +54,7 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
             });
         } else {
           setIsLoggedIn(false);
-          liff.login();
+          // liff.login();
         }
       })
       .catch((e: Error) => {

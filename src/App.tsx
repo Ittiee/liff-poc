@@ -4,16 +4,18 @@ import { LiffProvider } from './contexts/LiffContext';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import "./App.css";
+import Navbar from './components/layout/Navbar';
 
 function App() {
   return (
     <LiffProvider>
       <Router>
         <div className="App">
-          <nav style={{ padding: '20px', borderBottom: '1px solid #ccc' }}>
+          {/* <nav style={{ padding: '20px', borderBottom: '1px solid #ccc' }}>
             <Link to="/" style={{ marginRight: '20px' }}>Home</Link>
             <Link to="/about">About</Link>
-          </nav>
+          </nav> */}
+          <Navbar />
           
           <div style={{ padding: '20px' }}>
             <Routes>

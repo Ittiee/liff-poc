@@ -26,12 +26,6 @@ const HomePage: React.FC = () => {
         )}
       </div>
 
-      {!isLoggedIn ? (
-        <button onClick={login}>Login</button>
-      ) : (
-        <button onClick={logout}>Logout</button>
-      )}
-
       {userProfile && <ProfileCard userProfile={userProfile} />}
 
     </div>
