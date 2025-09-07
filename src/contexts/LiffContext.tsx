@@ -6,6 +6,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { useLocation } from "react-router-dom";
+import { getLiffIdForPath } from "../config/liffConfig";
 
 interface LiffContextType {
   message: string;
@@ -13,6 +15,7 @@ interface LiffContextType {
   isInitialized: boolean;
   isLoggedIn: boolean;
   userProfile: any | null;
+  currentLiffId: string | null;
   login: () => void;
   logout: () => void;
 }
@@ -32,44 +35,61 @@ interface LiffProviderProps {
 }
 
 export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
+  const location = useLocation();
   const [message, setMessage] = useState("LIFF initializing...");
   const [error, setError] = useState("");
   const [isInitialized, setIsInitialized] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState<any | null>(null);
+  const [currentLiffId, setCurrentLiffId] = useState<string | null>(null);
 
-  useEffect(() => {
-    liff
-      .init({
-        liffId: import.meta.env.VITE_LIFF_ID,
-      })
-      .then(() => {
-        setMessage("LIFF init succeeded.");
-        setIsInitialized(true);
+  // ฟังก์ชันสำหรับ initialize LIFF
+  const initializeLiff = async (liffId: string) => {
+    try {
+      setMessage("LIFF initializing...");
+      setError("");
+      setIsInitialized(false);
 
-        // Check if user is already logged in
-        if (liff.isLoggedIn()) {
-          setIsLoggedIn(true);
-          // Get user profile
-          liff
-            .getProfile()
-            .then((profile) => {
-              setUserProfile(profile);
-            })
-            .catch((err) => {
-              console.error("Failed to get user profile:", err);
-            });
-        } else {
-          setIsLoggedIn(false);
-          // liff.login();
+      await liff.init({ liffId });
+
+      setMessage("LIFF init succeeded.");
+      setIsInitialized(true);
+      setCurrentLiffId(liffId);
+
+      // Check if user is already logged in
+      if (liff.isLoggedIn()) {
+        setIsLoggedIn(true);
+        try {
+          const profile = await liff.getProfile();
+          setUserProfile(profile);
+        } catch (err) {
+          console.error("Failed to get user profile:", err);
         }
-      })
-      .catch((e: Error) => {
-        setMessage("LIFF init failed.");
-        setError(`${e}`);
-        setIsInitialized(false);
-      });
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch (e: any) {
+      setMessage("LIFF init failed.");
+      setError(`${e}`);
+      setIsInitialized(false);
+    }
+  };
+
+  // Effect สำหรับ initialize LIFF เมื่อ component mount
+  useEffect(() => {
+    const initialLiffId = getLiffIdForPath(location.pathname);
+    initializeLiff(initialLiffId);
   }, []);
+
+  // Effect สำหรับ re-initialize LIFF เมื่อ route เปลี่ยน
+  useEffect(() => {
+    const newLiffId = getLiffIdForPath(location.pathname);
+
+    // ถ้า LIFF ID เปลี่ยน ให้ re-initialize
+    if (currentLiffId && newLiffId !== currentLiffId) {
+      initializeLiff(newLiffId);
+    }
+  }, [location.pathname, currentLiffId]);
 
   const login = () => {
     if (!liff.isLoggedIn()) {
@@ -92,6 +112,7 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
     isInitialized,
     isLoggedIn,
     userProfile,
+    currentLiffId,
     login,
     logout,
   };

@@ -5,11 +5,10 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import "./App.css";
 import Navbar from './components/layout/Navbar';
-
 function App() {
   return (
-    <LiffProvider>
-      <Router>
+    <Router>
+      <LiffProvider>
         <div className="App">
           {/* Header */}
           <Navbar />
@@ -22,8 +21,8 @@ function App() {
             </Routes>
           </div>
         </div>
-      </Router>
-    </LiffProvider>
+      </LiffProvider>
+    </Router>
   );
 }
 
