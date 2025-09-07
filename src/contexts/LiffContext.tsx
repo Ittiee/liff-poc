@@ -54,7 +54,7 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
             });
         } else {
           setIsLoggedIn(false);
-          // liff.login();
+          liff.login();
         }
       })
       .catch((e: Error) => {
