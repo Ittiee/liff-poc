@@ -1,10 +1,9 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { LiffProvider } from './contexts/LiffContext';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from './components/layout/Navbar';
+import Navbar from "./components/layout/Navbar";
+import { LiffProvider } from "./contexts/LiffContext";
+import AboutPage from "./pages/AboutPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -14,8 +13,8 @@ function App() {
           {/* Header */}
           <Navbar />
 
-          {/* Main Content */}
-          <div style={{ padding: '20px' }}>
+          {/* Main Content  */}
+          <div style={{ padding: "20px" }}>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
