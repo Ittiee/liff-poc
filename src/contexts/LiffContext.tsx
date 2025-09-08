@@ -42,6 +42,7 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
     liff
       .init({
         liffId: import.meta.env.VITE_LIFF_ID,
+        withLoginOnExternalBrowser: true,
       })
       .then(() => {
         setMessage("LIFF init succeeded.");
