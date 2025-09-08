@@ -97,36 +97,36 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
   };
 
   // แสดง spinner ขณะ init
-  // if (!isInitialized) {
-  //   return (
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         height: "100vh",
-  //         flexDirection: "column",
-  //       }}>
-  //       <div
-  //         style={{
-  //           border: "4px solid #f3f3f3",
-  //           borderTop: "4px solid #00B900",
-  //           borderRadius: "50%",
-  //           width: "40px",
-  //           height: "40px",
-  //           animation: "spin 1s linear infinite",
-  //         }}></div>
-  //       <p style={{ marginTop: "16px", color: "#666" }}>{message}</p>
-  //       {error && <p style={{ color: "red", marginTop: "8px" }}>{error}</p>}
-  //       <style>{`
-  //         @keyframes spin {
-  //           0% { transform: rotate(0deg); }
-  //           100% { transform: rotate(360deg); }
-  //         }
-  //       `}</style>
-  //     </div>
-  //   );
-  // }
+  if (!isInitialized) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+        }}>
+        <div
+          style={{
+            border: "4px solid #f3f3f3",
+            borderTop: "4px solid #00B900",
+            borderRadius: "50%",
+            width: "40px",
+            height: "40px",
+            animation: "spin 1s linear infinite",
+          }}></div>
+        <p style={{ marginTop: "16px", color: "#666" }}>{message}</p>
+        {error && <p style={{ color: "red", marginTop: "8px" }}>{error}</p>}
+        <style>{`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   // แสดง children เมื่อ init เสร็จ
   return <LiffContext.Provider value={value}>{children}</LiffContext.Provider>;
