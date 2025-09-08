@@ -49,7 +49,7 @@ export const useLiffHook = (options: UseLiffOptions): UseLiffReturn => {
             });
         } else {
           setIsLoggedIn(false);
-          // liff.login();
+          liff.login();
         }
       })
       .catch((e: Error) => {
