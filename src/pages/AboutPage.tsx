@@ -6,7 +6,7 @@ import { useLiffHook } from "../hooks/useLiffHook";
 const AboutPage: React.FC = () => {
   // const { message, error } = useLiff();
 
-  const { message, error, isLoggedIn, logout } = useLiffHook({
+  const { message, error, isLoggedIn, login, logout } = useLiffHook({
     liffId: import.meta.env.VITE_LIFF_ID_ABOUT,
   });
 
@@ -16,6 +16,9 @@ const AboutPage: React.FC = () => {
     <div>
       <h1>About Page</h1>
       <p>This is the About page</p>
+
+      <button onClick={() => navigate("/")}>Go to Home</button>
+
       <div>
         <h2>LIFF Status</h2>
         {message && <p>{message}</p>}
@@ -26,8 +29,13 @@ const AboutPage: React.FC = () => {
         )}
       </div>
 
-      <button onClick={() => navigate("/")}>Go to Home</button>
-      {isLoggedIn && <button onClick={() => logout()}>Logout</button>}
+      <div>
+        {isLoggedIn ? (
+          <button onClick={() => logout()}>Logout</button>
+        ) : (
+          <button onClick={() => login()}>Login</button>
+        )}
+      </div>
     </div>
   );
 };
