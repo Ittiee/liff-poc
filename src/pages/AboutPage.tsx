@@ -1,5 +1,6 @@
 import React from "react";
 // import { useLiff } from '../contexts/LiffContext';
+import { useNavigate } from "react-router-dom";
 import { useLiffHook } from "../hooks/useLiffHook";
 
 const AboutPage: React.FC = () => {
@@ -8,6 +9,8 @@ const AboutPage: React.FC = () => {
   const { message, error } = useLiffHook({
     liffId: import.meta.env.VITE_LIFF_ID_ABOUT,
   });
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -22,6 +25,8 @@ const AboutPage: React.FC = () => {
           </p>
         )}
       </div>
+
+      <button onClick={() => navigate("/")}>Go to Home</button>
     </div>
   );
 };

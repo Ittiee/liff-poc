@@ -1,8 +1,8 @@
 import React from "react";
 // import { useLiff } from '../contexts/LiffContext';
+import { useNavigate } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
 import { useLiffHook } from "../hooks";
-import { usePageNavigation } from "../hooks/usePageNavigation";
 
 const HomePage: React.FC = () => {
   // const { message, error, userProfile } = useLiff();
@@ -10,11 +10,9 @@ const HomePage: React.FC = () => {
     liffId: import.meta.env.VITE_LIFF_ID_HOME,
   });
 
+  const navigate = useNavigate();
+
   // ใช้ custom hook สำหรับจัดการ page navigation
-  usePageNavigation({
-    validPages: ["about"],
-    replaceHistory: true,
-  });
 
   return (
     <div>
@@ -30,6 +28,8 @@ const HomePage: React.FC = () => {
           </p>
         )}
       </div>
+
+      <button onClick={() => navigate("/about")}>Go to About</button>
 
       {userProfile && <ProfileCard userProfile={userProfile} />}
     </div>
