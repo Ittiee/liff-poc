@@ -70,7 +70,7 @@ export const useLiffHook = (options: UseLiffOptions): UseLiffReturn => {
       liff.logout();
       setIsLoggedIn(false);
       setUserProfile(null);
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
