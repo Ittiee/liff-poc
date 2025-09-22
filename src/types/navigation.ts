@@ -16,4 +16,12 @@ export interface RouteConfig {
   name: string;
   component: React.ComponentType;
   requiresAuth?: boolean;
+  isPublic?: boolean;
+}
+
+export interface NavigationItem {
+  path: string;
+  label: string;
+  requiresAuth?: boolean;
+  icon?: string;
 }

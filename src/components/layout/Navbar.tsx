@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
-import { useLiff } from "../../contexts/LiffContext";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Navbar: React.FC = () => {
-  const { isLoggedIn, login, logout } = useLiff();
+  const { isLoggedIn, isLoading, user, login, logout } = useAuth();
+  const location = useLocation();
 
   return (
     <nav
@@ -47,34 +48,80 @@ const Navbar: React.FC = () => {
           }}>
           About
         </Link>
+        {isLoggedIn && (
+          <Link
+            to="/profile"
+            style={{
+              textDecoration: "none",
+              color: "#333",
+            }}>
+            Profile
+          </Link>
+        )}
       </div>
 
-      <div>
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        {isLoggedIn && user && (
+          <div style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: "8px",
+            fontSize: "14px",
+            color: "#666"
+          }}>
+            {user.avatar && (
+              <img 
+                src={user.avatar} 
+                alt={user.name}
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  borderRadius: "50%"
+                }}
+              />
+            )}
+            <span>Hi, {user.name}</span>
+            {user.roles.includes('admin') && (
+              <span style={{
+                background: "#00B900",
+                color: "white",
+                padding: "2px 6px",
+                borderRadius: "4px",
+                fontSize: "10px",
+                fontWeight: "bold"
+              }}>ADMIN</span>
+            )}
+          </div>
+        )}
+        
         {!isLoggedIn ? (
-          <button
-            onClick={login}
+          <Link 
+            to={`/login?returnTo=${encodeURIComponent(location.pathname)}`}
             style={{
               padding: "8px 16px",
               borderRadius: "4px",
               border: "none",
               backgroundColor: "#4CAF50",
               color: "white",
-              cursor: "pointer",
+              textDecoration: "none",
+              display: "inline-block",
             }}>
-            Login
-          </button>
+            {isLoading ? "Loading..." : "Sign In"}
+          </Link>
         ) : (
           <button
             onClick={logout}
+            disabled={isLoading}
             style={{
               padding: "8px 16px",
               borderRadius: "4px",
               border: "none",
               backgroundColor: "#f44336",
               color: "white",
-              cursor: "pointer",
+              cursor: isLoading ? "not-allowed" : "pointer",
+              opacity: isLoading ? 0.7 : 1,
             }}>
-            Logout
+            {isLoading ? "Signing out..." : "Sign Out"}
           </button>
         )}
       </div>
